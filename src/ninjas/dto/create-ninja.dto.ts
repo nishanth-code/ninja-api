@@ -1,4 +1,7 @@
 export class CreateNinjaDto  {
-    name:String
+    name:string
+    weapon:'star'|'shurik'
+    
+
 
 }

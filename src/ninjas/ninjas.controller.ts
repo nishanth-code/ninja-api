@@ -6,31 +6,33 @@ import { NinjasService } from './ninjas.service';
 
 @Controller('ninjas')
 export class NinjasController {
+    constructor(private readonly ninjaService:NinjasService ){}
     @Get()
     getNinjas(@Query('weapon') weapon:'star'|'shurik'){
-        const service = new NinjasService()
-        return service.getNinjas(weapon)
+        // const service = new NinjasService()
+        return this.ninjaService.getNinjas(weapon)
 
     }
 
     @Post()
-    createNinja(@Body() ninja:CreateNinjaDto):String|CreateNinjaDto{
-        return ninja
+    createNinja(@Body() ninja:CreateNinjaDto){
+        return this.ninjaService.createNinja(ninja)
 
     }
 
     @Get(':id')
-    getANinja(@Param('id') id :String):String{
-        return id
+    getANinja(@Param('id') id :string){
+        return this.ninjaService.getNinja(+id)
+    
     }
 
     @Put(':id')
-    updateNinja(@Param('id') id:String,@Body() updatninja:updateNinjaDto):String{
-        return 'updated sucessfully'
+    updateNinja(@Param('id') id:string,@Body() updatninja:updateNinjaDto){
+        return this.ninjaService.updateNinja(+id,updatninja)
     }
 
     @Delete(':id')
-    deleteNinja(){
-        return {}
+    deleteNinja(@Param('id') id:string){
+        return this.ninjaService.removeNinja(+id)
     }
 }
